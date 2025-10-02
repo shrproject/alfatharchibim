@@ -387,4 +387,19 @@ All colors MUST be HSL.
   body {
     @apply bg-background text-foreground;
   }
+
+  .carousel-wrapper.scrolling .carousel-inner {
+  /* Mengaktifkan animasi scroll */
+  animation: scroll linear infinite;
+}
+
+@keyframes scroll {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    /* Geser sejauh setengah dari total lebar (karena konten diduplikasi) */
+    transform: translateX(-50%);
+  }
+}
 }

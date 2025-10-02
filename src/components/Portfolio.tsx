@@ -1,4 +1,4 @@
-
+// Portfolio.tsx
 
 "use client";
 
@@ -28,21 +28,16 @@ type Project = {
 };
 
 const Portfolio: FC = () => {
-  // 3. Tampilan awal diubah ke kategori pertama
   const [activeCategory, setActiveCategory] = useState<string>("residential");
-  const [currentPage, setCurrentPage] = useState<number>(0);
+  const [currentItemIndex, setCurrentItemIndex] = useState<number>(0);
 
-  // --- Konfigurasi ---
   const ITEMS_PER_PAGE = 3;
   const AUTOPLAY_INTERVAL = 5000;
   const THROTTLE_DELAY = 500;
 
-  // --- Ref dengan Tipe ---
   const autoplayInterval = useRef<NodeJS.Timeout | null>(null);
   const throttleTimeout = useRef<NodeJS.Timeout | null>(null);
 
-  // 1. Kategori "all" dihapus
-  // 2. Kategori "industrial" ditambahkan
   const categories: Category[] = [
     { id: "residential", name: "Residensial" },
     { id: "commercial", name: "Komersial" },
@@ -50,73 +45,95 @@ const Portfolio: FC = () => {
     { id: "industrial", name: "Industrial" },
   ];
 
+  // PERBAIKAN 1: Semua ID proyek dibuat unik untuk menghilangkan error key
   const projects: Project[] = [
     { id: 1, title: "Rumah Keluarga Modern", category: "residential", image: residentialImage, description: "Desain rumah kontemporer.", location: "Jakarta, Indonesia" },
-    { id: 13, title: "Rumah Keluarga Modern", category: "residential", image: residentialImage, description: "Desain rumah kontemporer.", location: "Jakarta, Indonesia" },
-    { id: 4, title: "Rumah Keluarga Modern", category: "residential", image: residentialImage, description: "Desain rumah kontemporer.", location: "Jakarta, Indonesia" },
+    { id: 13, title: "Apartemen Urban", category: "residential", image: residentialImage, description: "Hunian vertikal modern.", location: "Jakarta, Indonesia" },
+    { id: 14, title: "Townhouse Eksklusif", category: "residential", image: residentialImage, description: "Kompleks hunian privat.", location: "Jakarta, Indonesia" },
+    { id: 15, title: "Townhouse Eksklusif", category: "residential", image: residentialImage, description: "Kompleks hunian privat.", location: "Jakarta, Indonesia" },
     { id: 2, title: "Coffee House Urban", category: "commercial", image: cafeImage, description: "Kafe industrial-chic modern.", location: "Bandung, Indonesia" },
     { id: 3, title: "Kompleks Kantor Korporat", category: "institutional", image: institutionalImage, description: "Ruang kerja profesional.", location: "Surabaya, Indonesia" },
     { id: 4, title: "Villa Tepi Pantai", category: "residential", image: residentialImage, description: "Hunian mewah pemandangan laut.", location: "Bali, Indonesia" },
     { id: 5, title: "Perpustakaan Umum", category: "institutional", image: institutionalImage, description: "Pusat pengetahuan modern.", location: "Yogyakarta, Indonesia" },
     { id: 6, title: "Restoran & Lounge", category: "commercial", image: cafeImage, description: "Tempat makan elegan.", location: "Medan, Indonesia" },
-    { id: 11, title: "Restoran & Lounge", category: "commercial", image: cafeImage, description: "Tempat makan elegan.", location: "Medan, Indonesia" },
-    { id: 12, title: "Restoran & Lounge", category: "commercial", image: cafeImage, description: "Tempat makan elegan.", location: "Medan, Indonesia" },
-    // 2. Contoh proyek industrial ditambahkan
+    { id: 11, title: "Retail Space Modern", category: "commercial", image: cafeImage, description: "Area perbelanjaan baru.", location: "Medan, Indonesia" },
+    { id: 12, title: "Boutique Hotel", category: "commercial", image: cafeImage, description: "Akomodasi penuh gaya.", location: "Medan, Indonesia" },
     { id: 7, title: "Pabrik Manufaktur", category: "industrial", image: industrialImage, description: "Fasilitas produksi efisien.", location: "Semarang, Indonesia" },
     { id: 8, title: "Gudang Logistik", category: "industrial", image: industrialImage, description: "Pusat distribusi modern.", location: "Bekasi, Indonesia" },
-    { id: 9, title: "Gudang Logistik", category: "industrial", image: industrialImage, description: "Pusat distribusi modern.", location: "Bekasi, Indonesia" },
-    { id: 10, title: "Gudang Logistik", category: "industrial", image: industrialImage, description: "Pusat distribusi modern.", location: "Bekasi, Indonesia" },
+    { id: 9, title: "Pusat Data Center", category: "industrial", image: industrialImage, description: "Infrastruktur data terpadu.", location: "Bekasi, Indonesia" },
+    { id: 10, title: "Kawasan Industri", category: "industrial", image: industrialImage, description: "Area industri terintegrasi.", location: "Bekasi, Indonesia" },
   ];
 
-  // Logika filter disederhanakan karena tidak ada "all"
   const filteredProjects = projects.filter((project) => project.category === activeCategory);
-  const totalPages = Math.ceil(filteredProjects.length / ITEMS_PER_PAGE);
+  const lastPossibleIndex = filteredProjects.length > ITEMS_PER_PAGE ? filteredProjects.length - ITEMS_PER_PAGE : 0;
 
+  // PERBAIKAN 2: Logika `nextPage` dan `prevPage` disempurnakan agar tidak macet
   const nextPage = useCallback(() => {
-    if (totalPages > 1) {
-      setCurrentPage((prev) => (prev + 1) % totalPages);
-    }
-  }, [totalPages]);
+    if (filteredProjects.length <= ITEMS_PER_PAGE) return;
+    setCurrentItemIndex(prev => {
+        const nextIndex = prev + ITEMS_PER_PAGE;
+        // Jika lompatan berikutnya melebihi batas, pergi ke indeks terakhir yang mungkin
+        if (nextIndex > lastPossibleIndex) {
+            // Namun jika sudah di akhir, kembali ke awal
+            return prev === lastPossibleIndex ? 0 : lastPossibleIndex;
+        }
+        return nextIndex;
+    });
+  }, [filteredProjects.length, lastPossibleIndex]);
 
-  const prevPage = () => {
-    if (totalPages > 1) {
-      setCurrentPage((prev) => (prev - 1 + totalPages) % totalPages);
-    }
-  };
+  const prevPage = useCallback(() => {
+    if (filteredProjects.length <= ITEMS_PER_PAGE) return;
+    setCurrentItemIndex(prev => {
+        const nextIndex = prev - ITEMS_PER_PAGE;
+        // Jika lompatan mundur kurang dari 0, pergi ke awal
+        if (nextIndex < 0) {
+            // Namun jika sudah di awal, pergi ke akhir
+            return prev === 0 ? lastPossibleIndex : 0;
+        }
+        return nextIndex;
+    });
+  }, [lastPossibleIndex]);
 
-  const handleHoverNextPage = useCallback(() => {
+  // Fungsi geser 1 item (untuk hover), tidak berubah
+  const slideNextItemOnHover = useCallback(() => {
+    if (filteredProjects.length <= ITEMS_PER_PAGE) return;
+    setCurrentItemIndex(prev => (prev >= lastPossibleIndex ? 0 : prev + 1));
+  }, [filteredProjects.length, lastPossibleIndex]);
+
+
+  const handleHover = useCallback(() => {
     if (throttleTimeout.current) return;
-    nextPage();
     throttleTimeout.current = setTimeout(() => {
-      throttleTimeout.current = null;
+        slideNextItemOnHover();
+        throttleTimeout.current = null;
     }, THROTTLE_DELAY);
-  }, [nextPage]);
+  }, [slideNextItemOnHover]);
 
   useEffect(() => {
-    // Reset halaman saat filter berubah untuk menghindari bug tampilan kosong
-    setCurrentPage(0);
-    
-    if (totalPages > 1) {
-      // Hapus interval lama sebelum set yang baru
+    setCurrentItemIndex(0);
+  }, [activeCategory]);
+  
+  // Auto-play sekarang memanggil `nextPage` yang sudah diperbaiki
+  useEffect(() => {
+    if (filteredProjects.length > ITEMS_PER_PAGE) {
       if (autoplayInterval.current) clearInterval(autoplayInterval.current);
       autoplayInterval.current = setInterval(nextPage, AUTOPLAY_INTERVAL);
     } else {
-       // Hentikan interval jika hanya ada satu halaman atau kurang
-       if (autoplayInterval.current) clearInterval(autoplayInterval.current);
+        if (autoplayInterval.current) clearInterval(autoplayInterval.current);
     }
-  
     return () => {
       if (autoplayInterval.current) clearInterval(autoplayInterval.current);
     };
-  }, [nextPage, totalPages, activeCategory]);
+  }, [nextPage, filteredProjects.length]);
 
   const handleMouseEnter = () => {
     if (autoplayInterval.current) clearInterval(autoplayInterval.current);
-    handleHoverNextPage();
+    handleHover();
   };
 
   const handleMouseLeave = () => {
-    if (totalPages > 1) {
+    if (filteredProjects.length > ITEMS_PER_PAGE) {
+      if (autoplayInterval.current) clearInterval(autoplayInterval.current);
       autoplayInterval.current = setInterval(nextPage, AUTOPLAY_INTERVAL);
     }
   };
@@ -147,18 +164,23 @@ const Portfolio: FC = () => {
           ))}
         </div>
 
-        <div className="relative max-w-7xl mx-auto" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+        <div 
+          className="relative max-w-7xl mx-auto" 
+          onMouseEnter={handleMouseEnter} 
+          onMouseLeave={handleMouseLeave}
+        >
           {filteredProjects.length > 0 ? (
             <>
               <div className="relative overflow-hidden">
-                <div className="flex transition-transform duration-700 ease-in-out" style={{ transform: `translateX(-${currentPage * 100}%)` }}>
-                  {Array.from({ length: totalPages }).map((_, pageIndex) => (
-                    <div key={pageIndex} className="w-full flex-shrink-0 grid grid-cols-3 gap-2 md:gap-8">
-                      {filteredProjects
-                        .slice(pageIndex * ITEMS_PER_PAGE, pageIndex * ITEMS_PER_PAGE + ITEMS_PER_PAGE)
-                        .map((project) => (
-                          <div key={project.id} className="relative group overflow-hidden rounded-xl shadow-elegant">
-                            <Image src={project.image} alt={project.title} className="w-full h-96 object-cover transition-transform duration-500 group-hover:scale-110"/>
+                <div 
+                  className="flex transition-transform duration-700 ease-in-out" 
+                  style={{ transform: `translateX(-${currentItemIndex * (100 / ITEMS_PER_PAGE)}%)` }}
+                >
+                  {filteredProjects.map((project) => (
+                      <div key={project.id} className="flex-shrink-0" style={{ width: `${100 / ITEMS_PER_PAGE}%` }}>
+                        <div className="p-1 md:p-4 h-full">
+                           <div className="relative group overflow-hidden rounded-xl shadow-elegant h-full">
+                            <Image src={project.image} alt={project.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"/>
                             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
                             <div className="absolute bottom-0 left-0 right-0 p-2 md:p-6 text-white">
                               <h3 className="text-lg md:text-2xl font-bold mb-1 md:mb-2">{project.title}</h3>
@@ -166,20 +188,20 @@ const Portfolio: FC = () => {
                               <p className="text-sm md:text-base text-brand-gold font-medium">{project.location}</p>
                             </div>
                           </div>
-                        ))}
-                    </div>
-                  ))}
+                        </div>
+                      </div>
+                    ))}
                 </div>
               </div>
 
-              {totalPages > 1 && (
+              {filteredProjects.length > ITEMS_PER_PAGE && (
                 <>
-                  <button onClick={prevPage} className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/30 rounded-full p-2 md:p-3 transition-smooth z-10">
+                  {/* <button onClick={prevPage} className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/30 rounded-full p-2 md:p-3 transition-smooth z-10">
                     <ChevronLeft className="h-5 w-5 md:h-6 md:w-6 text-white" />
                   </button>
                   <button onClick={nextPage} className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/30 rounded-full p-2 md:p-3 transition-smooth z-10">
                     <ChevronRight className="h-5 w-5 md:h-6 md:w-6 text-white" />
-                  </button>
+                  </button> */}
                 </>
               )}
             </>
