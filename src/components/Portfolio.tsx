@@ -12,10 +12,10 @@ const Portfolio = () => {
   const [currentProject, setCurrentProject] = useState(0);
 
   const categories = [
-    { id: "all", name: "Semua Proyek" },
-    { id: "residential", name: "Residensial" },
-    { id: "commercial", name: "Komersial" },
-    { id: "institutional", name: "Institusi" }
+    { id: "residential", name: "Residential" },
+    { id: "commercial ", name: "Commercial" },
+    { id: "institutional ", name: "Institutional" },
+    { id: "industrial ", name: "Industrial" }
   ];
 
   const projects = [

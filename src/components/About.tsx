@@ -12,11 +12,11 @@ const About = () => {
       title: "Pemodelan BIM",
       description: "Teknologi pemodelan 3D canggih dan Building Information Modeling"
     },
-    {
-      icon: Users,
-      title: "Manajemen Konstruksi",
-      description: "Manajemen proyek menyeluruh dari konsep hingga penyelesaian"
-    }
+    // {
+    //   icon: Users,
+    //   title: "Manajemen Konstruksi",
+    //   description: "Manajemen proyek menyeluruh dari konsep hingga penyelesaian"
+    // }
   ];
 
   const expertise = [

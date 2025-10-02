@@ -1,6 +1,5 @@
 'use client'
 import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import alfathLogo from "@/assets/alfath-logo.png";
 import Image from "next/image";
