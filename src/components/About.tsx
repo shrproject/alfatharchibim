@@ -20,12 +20,9 @@ const About = () => {
   ];
 
   const expertise = [
-    "Arsitektur Residensial",
-    "Bangunan Komersial",
-    "Desain Interior",
-    "Visualisasi 3D",
-    "Dokumentasi Konstruksi",
-    "Manajemen Proyek"
+    {title: "Desain Arsitektur Kreatif & Modern", description: "untuk rumah tinggal, perumahan, café, restoran, kantor, hingga instansi publik."},
+    {title: "Konstruksi Berkualitas", description: "yang dikerjakan dengan standar profesional, material terjamin, dan tenaga ahli berpengalaman."},
+    {title: "One-Stop Solution ", description: "dari sketsa konsep, gambar kerja, RAB, hingga bangunan berdiri siap pakai."},
   ];
 
   return (
@@ -35,23 +32,23 @@ const About = () => {
           {/* Content */}
           <div>
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-brand-dark">
-              Layanan Arsitektur & 
-              <span className="text-brand-gold"> Konstruksi Ahli</span>
+             Layanan BIM, Design Arsitektur &
+              <span className="text-brand-gold"> Konstruksi Bangunan</span>
             </h2>
             
             <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-              Alfath Archibim mengkhususkan diri dalam memberikan solusi arsitektur komprehensif 
-              yang menggabungkan desain inovatif dengan fungsionalitas praktis. Tim arsitek dan 
-              insinyur berpengalaman kami mewujudkan visi Anda melalui teknologi BIM terdepan 
-              dan keahlian konstruksi yang terbukti.
+             Di Alfath Archibim, kami menghadirkan solusi arsitektur dan konstruksi yang menyatukan desain inovatif dengan fungsi yang benar-benar Anda butuhkan. Dengan dukungan teknologi BIM terbaru dan tim arsitek berpengalaman, kami memastikan setiap detail bangunan dari konsep hingga berdiri tepat, efisien dan sesuai impian Anda.
             </p>
 
             {/* Expertise List */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
               {expertise.map((item, index) => (
-                <div key={index} className="flex items-center space-x-3">
-                  <CheckCircle className="h-5 w-5 text-brand-gold flex-shrink-0" />
-                  <span className="text-foreground font-medium">{item}</span>
+                <div key={index} className="flex flex-col space-x-3">
+                  <div className="flex gap-2">
+                    <CheckCircle className="h-5 w-5 text-brand-gold flex-shrink-0" />
+                    <span className="text-foreground font-medium">{item.title}</span>
+                  </div>
+                  <span className="text-start text-muted-foreground">{item.description}</span>
                 </div>
               ))}
             </div>

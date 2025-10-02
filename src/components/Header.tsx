@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import alfathLogo from "@/assets/alfath-logo.png";
 import Image from "next/image";
+import Link from "next/link";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -52,7 +53,7 @@ const Header = () => {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
-              <a
+              <Link
                 key={item.name}
                 href={item.href}
                 className={`font-bold transition-smooth hover:text-brand-gold ${
@@ -60,7 +61,7 @@ const Header = () => {
                 }`}
               >
                 {item.name}
-              </a>
+              </Link>
             ))}
           </nav>
 

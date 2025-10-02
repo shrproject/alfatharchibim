@@ -3,9 +3,13 @@
 
 @custom-variant dark (&:is(.dark *)); /* Include if you need animations like accordion-down; optional otherwise */
 
+html {
+  scroll-behavior: smooth;
+}
 body {
   margin: 0 auto;
   text-align: center;
+  scroll-behavior: smooth;
 }
 
 /* Demo logo styles (keep if using similar components; otherwise, remove) */
