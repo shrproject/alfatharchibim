@@ -9,40 +9,47 @@ import Image, { StaticImageData } from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
 // --- Path Gambar ---
-import residentialImage1 from "@/assets/Residence/1.jpg";
-import residentialImage2 from "@/assets/Residence/3.jpg";
-import residentialImage3 from "@/assets/Residence/4.jpg";
-import residentialImage4 from "@/assets/Residence/6.jpg";
-import residentialImage5 from "@/assets/Residence/9.1.jpg";
-import residentialImage6 from "@/assets/Residence/10.jpg";
-import residentialImage8 from "@/assets/Residence/BC/6.jpg";
-import residentialImage9 from "@/assets/Residence/BC/BC HOUSE 1 - 1.jpg";
-import residentialImage10 from "@/assets/Residence/BC/BC HOUSE 1 - 3.jpg";
-import residentialImage11 from "@/assets/Residence/BC/BC HOUSE 1 - 4.jpg";
-import residentialImage12 from "@/assets/Residence/BC/BC HOUSE 1 - 5.jpg";
-import residentialImage13 from "@/assets/Residence/BC/BC HOUSE 1 - 6.jpg";
-import residentialImage14 from "@/assets/Residence/BC/1.jpg";
-import residentialImage15 from "@/assets/Residence/BC/4.jpg";
-import residentialImage16 from "@/assets/Residence/BC/5.jpg";
-import residentialImage17 from "@/assets/Residence/Kos_Bayu/1 (1).jpg";
-import residentialImage18 from "@/assets/Residence/Kos_Bayu/2.jpg";
-import residentialImage19 from "@/assets/Residence/Kos_Bayu/3.1.jpg";
-import residentialImage20 from "@/assets/Residence/Kos_Bayu/3.jpg";
-import residentialImage21 from "@/assets/Residence/Kos_Bayu/4.1.jpg";
-import residentialImage22 from "@/assets/Residence/Kos_Bayu/4.jpg";
-import residentialImage23 from "@/assets/Residence/Kos_Bayu/5.jpg";
-import residentialImage24 from "@/assets/Residence/Kos_Bayu/6.jpg";
+// import residentialImage1 from "@/assets/Residence/1.jpg";
+// import residentialImage2 from "@/assets/Residence/3.jpg";
+// import residentialImage3 from "@/assets/Residence/4.jpg";
+// import residentialImage4 from "@/assets/Residence/6.jpg";
+// import residentialImage5 from "@/assets/Residence/9.1.jpg";
+// import residentialImage6 from "@/assets/Residence/10.jpg";
+// import residentialImage8 from "@/assets/Residence/BC/6.jpg";
+// import residentialImage9 from "@/assets/Residence/BC/BC HOUSE 1 - 1.jpg";
+// import residentialImage10 from "@/assets/Residence/BC/BC HOUSE 1 - 3.jpg";
+// import residentialImage11 from "@/assets/Residence/BC/BC HOUSE 1 - 4.jpg";
+// import residentialImage12 from "@/assets/Residence/BC/BC HOUSE 1 - 5.jpg";
+// import residentialImage13 from "@/assets/Residence/BC/BC HOUSE 1 - 6.jpg";
+// import residentialImage14 from "@/assets/Residence/BC/1.jpg";
+// import residentialImage15 from "@/assets/Residence/BC/4.jpg";
+// import residentialImage16 from "@/assets/Residence/BC/5.jpg";
+// import residentialImage17 from "@/assets/Residence/Kos_Bayu/1 (1).jpg";
+// import residentialImage18 from "@/assets/Residence/Kos_Bayu/2.jpg";
+// import residentialImage19 from "@/assets/Residence/Kos_Bayu/3.1.jpg";
+// import residentialImage20 from "@/assets/Residence/Kos_Bayu/3.jpg";
+// import residentialImage21 from "@/assets/Residence/Kos_Bayu/4.1.jpg";
+// import residentialImage22 from "@/assets/Residence/Kos_Bayu/4.jpg";
+// import residentialImage23 from "@/assets/Residence/Kos_Bayu/5.jpg";
+// import residentialImage24 from "@/assets/Residence/Kos_Bayu/6.jpg";
 // import residentialImage7 from "@/assets/Residence/11.1.jpg";
 import commercialImage1 from "@/assets/project-cafe-1.jpg";
 import institutionalImage1 from "@/assets/project-institutional-1.jpg";
 import industrialImage1 from "@/assets/project-institutional-1.jpg";
-const residentialImage7 = "https://i.ibb.co.com/JFGX9xyX/11-1.jpg";
+const residentialImage7 = "https://i.ibb.co.com/JFGX9xyX/1.jpg";
+const residentialImage1 = "https://i.ibb.co.com/TD0Qn5fh/11-1.jpg";
+const residentialImage2 = "https://i.ibb.co.com/7dzzNdp3/3.jpg";
+const residentialImage3 = "https://i.ibb.co.com/gQ9D9RN/4.jpg";
+const residentialImage4 = "https://i.ibb.co.com/nsVYVvzJ/6.jpg";
+const residentialImage5 = "https://i.ibb.co.com/gb8Mw0gz/10.jpg";
+const residentialImage6 = "https://i.ibb.co.com/k2h9FHsH/9-1.jpg";
+const residentialImage8 = "https://i.ibb.co.com/k2h9FHsH/9-1.jpg";
 
 // --- Definisi Tipe Data ---
 type Project = {
   id: number;
   title: string;
-  image: StaticImageData | string;
+  image:  string;
   lokasi: string;
 };
 
@@ -69,44 +76,96 @@ const portfolioData: PortfolioData = {
       { id: 103, title: "Rumah Tropis Minimalis", image: residentialImage3, lokasi: "Bandung, Indonesia" },
       { id: 104, title: "Rumah Tropis Minimalis", image: residentialImage4, lokasi: "Bandung, Indonesia" },
       { id: 105, title: "Rumah Tropis Minimalis", image: residentialImage5, lokasi: "Bandung, Indonesia" },
-      { id: 106, "title": "Rumah Tropis Minimalis", image: residentialImage6, lokasi: "Bandung, Indonesia" },
+      { id: 106, title: "Rumah Tropis Minimalis", image: residentialImage6, lokasi: "Bandung, Indonesia" },
       { id: 107, title: "Rumah Tropis Minimalis", image: residentialImage7, lokasi: "Bandung, Indonesia" },
     ],
     "BC HOUSE": [
-      { id: 201, title: "Gambar Perencanaan Rumah Tinggal Bayu Caroko", image: residentialImage8, lokasi: "Perumahan The Orchard Town House , Ambon Maluku" },
-      { id: 202, title: "Green Valley Residence", image: residentialImage9, lokasi: "Perumahan The Orchard Town House , Ambon Maluku" },
-      { id: 204, title: "Citra Garden", image: residentialImage10, lokasi: "Perumahan The Orchard Town House , Ambon Maluku" },
-      { id: 205, title: "Citra Garden", image: residentialImage11, lokasi: "Perumahan The Orchard Town House , Ambon Maluku" },
-      { id: 206, title: "Citra Garden", image: residentialImage12, lokasi: "Perumahan The Orchard Town House , Ambon Maluku" },
-      { id: 207, title: "Citra Garden", image: residentialImage13, lokasi: "Perumahan The Orchard Town House , Ambon Maluku" },
-      { id: 208, title: "Citra Garden", image: residentialImage14, lokasi: "Perumahan The Orchard Town House , Ambon Maluku" },
-      { id: 209, title: "Citra Garden", image: residentialImage15, lokasi: "Perumahan The Orchard Town House , Ambon Maluku" },
-      { id: 2010, title: "Citra Garden", image: residentialImage16, lokasi: "Perumahan The Orchard Town House , Ambon Maluku" },
+      { id: 201, title: "Gambar Perencanaan Rumah Tinggal Bayu Caroko", image: "https://i.ibb.co.com/hQtQ7D3/1.jpg", lokasi: "Perumahan The Orchard Town House , Ambon Maluku" },
+      { id: 202, title: "Green Valley Residence", image: "https://i.ibb.co.com/MDDWvKMK/4.jpg", lokasi: "Perumahan The Orchard Town House , Ambon Maluku" },
+      { id: 204, title: "Citra Garden", image: "https://i.ibb.co.com/WvMSTgrz/5.jpg", lokasi: "Perumahan The Orchard Town House , Ambon Maluku" },
+      { id: 205, title: "Citra Garden", image: "https://i.ibb.co.com/LDBkGNf9/BC-HOUSE-1-1.jpg", lokasi: "Perumahan The Orchard Town House , Ambon Maluku" },
+      { id: 206, title: "Citra Garden", image: "https://i.ibb.co.com/3y5dH3MS/BC-HOUSE-1-4.jpg", lokasi: "Perumahan The Orchard Town House , Ambon Maluku" },
+      { id: 207, title: "Citra Garden", image: "https://i.ibb.co.com/TBznZy5r/BC-HOUSE-1-3.jpg", lokasi: "Perumahan The Orchard Town House , Ambon Maluku" },
+      { id: 208, title: "Citra Garden", image: "https://i.ibb.co.com/0jJPCcj5/BC-HOUSE-1-6.jpg", lokasi: "Perumahan The Orchard Town House , Ambon Maluku" },
+      { id: 209, title: "Citra Garden", image:"https://i.ibb.co.com/8nT7ndjN/BC-HOUSE-1-5.jpg", lokasi: "Perumahan The Orchard Town House , Ambon Maluku" },
+      // { id: 2010, title: "Citra Garden", image: residentialImage16, lokasi: "Perumahan The Orchard Town House , Ambon Maluku" },
     ],
-    "Kos Pak Bayu ": [
-      { id: 301, title: "Design Hunian Kos ", image: residentialImage17, lokasi: "Sukoharjo" },
-      { id: 302, title: "The Peak Apartment", image: residentialImage18, lokasi: "Jakarta, Indonesia" },
-      // { id: 303, title: "The Peak Apartment", image: residentialImage19, lokasi: "Jakarta, Indonesia" },
-      // { id: 304, title: "The Peak Apartment", image: residentialImage20, lokasi: "Jakarta, Indonesia" },
-      { id: 305, title: "The Peak Apartment", image: residentialImage21, lokasi: "Jakarta, Indonesia" },
-      // { id: 306, title: "The Peak Apartment", image: residentialImage22, lokasi: "Jakarta, Indonesia" },
-      { id: 307, title: "The Peak Apartment", image: residentialImage23, lokasi: "Jakarta, Indonesia" },
-      { id: 308, title: "The Peak Apartment", image: residentialImage24, lokasi: "Jakarta, Indonesia" },
+   
+    "Kadu Little Garden": [
+      { id: 401, title: "Villa Tepi Pantai", image: "https://i.ibb.co.com/cKLqM9Cd/1.jpg", lokasi: "Cikupa, Kec. Cikupa, Kab. Tangerang, Banten" },
+      { id: 402, title: "Villa Tepi Pantai", image: "https://i.ibb.co.com/5hsz9QK6/3.jpg", lokasi: "Cikupa, Kec. Cikupa, Kab. Tangerang, Banten" },
+      { id: 403, title: "Villa Tepi Pantai", image: "https://i.ibb.co.com/G4QNhqyH/2.jpg", lokasi: "Cikupa, Kec. Cikupa, Kab. Tangerang, Banten" },
+      { id: 404, title: "Villa Tepi Pantai", image: "https://i.ibb.co.com/kY211tW/4.jpg", lokasi: "Cikupa, Kec. Cikupa, Kab. Tangerang, Banten" },
+      { id: 405, title: "Villa Tepi Pantai", image: "https://i.ibb.co.com/LdqxhVNv/7.jpg", lokasi: "Cikupa, Kec. Cikupa, Kab. Tangerang, Banten" },    
+      { id: 406, title: "Villa Tepi Pantai", image: "https://i.ibb.co.com/Z1T6VFkY/Denah-lantai-1.jpg", lokasi: "Cikupa, Kec. Cikupa, Kab. Tangerang, Banten" },    
+      { id: 407, title: "Villa Tepi Pantai", image: "https://i.ibb.co.com/7tYsb6mW/Potongan-S02.jpg", lokasi: "Cikupa, Kec. Cikupa, Kab. Tangerang, Banten" },    
+      { id: 408, title: "Villa Tepi Pantai", image: "https://i.ibb.co.com/SDFwM53W/Denah-lantai-2.jpg", lokasi: "Cikupa, Kec. Cikupa, Kab. Tangerang, Banten" },    
     ],
-    "Villa": [
-      { id: 401, title: "Villa Tepi Pantai", image: residentialImage4, lokasi: "Bali, Indonesia" }
-    ]
+    "HF House": [
+      { id: 801, title: "Villa Tepi Pantai", image: "https://i.ibb.co.com/nMVzzqN3/1-1.jpg", lokasi: "Bali, Indonesia" },
+      { id: 802, title: "Villa Tepi Pantai", image: "https://i.ibb.co.com/wrZD7fHY/2.jpg", lokasi: "Bali, Indonesia" },
+      { id: 803, title: "Villa Tepi Pantai", image: "https://i.ibb.co.com/Pv7Tthdy/4-1.jpg", lokasi: "Bali, Indonesia" },
+    ],
+    "ON House": [
+      { id: 901, title: "Villa Tepi Pantai", image: "https://i.ibb.co.com/zhN8t3v4/INTERIOR-2-Photo.jpg", lokasi: "Bali, Indonesia" },
+      { id: 902, title: "Villa Tepi Pantai", image: "https://i.ibb.co.com/js2hCXd/INTERIOR-4-Photo.jpg", lokasi: "Bali, Indonesia" },
+      { id: 903, title: "Villa Tepi Pantai", image: "https://i.ibb.co.com/3yChRdt2/3.jpg", lokasi: "Bali, Indonesia" },
+      { id: 904, title: "Villa Tepi Pantai", image: "https://i.ibb.co.com/gKLMv9g/INTERIOR-6-Photo.jpg", lokasi: "Bali, Indonesia" },
+      { id: 905, title: "Villa Tepi Pantai", image: "https://i.ibb.co.com/r2j3sh7H/1.jpg", lokasi: "Bali, Indonesia" },
+      { id: 905, title: "Villa Tepi Pantai", image: "https://i.ibb.co.com/zVYfrt1z/2.jpg", lokasi: "Bali, Indonesia" },
+      { id: 906, title: "Villa Tepi Pantai", image: "https://i.ibb.co.com/N61xh6Xd/INTERIOR-1-Photo.jpg", lokasi: "Bali, Indonesia" },
+    ],
+    "YT House": [
+      { id: 901, title: "Design Renovasi Rumah", image: "https://i.ibb.co.com/zW9JLGBQ/8.png", lokasi: "Perumahan Griya Sakinah , Temanggung" },
+      { id: 902, title: "Villa Tepi Pantai", image: "https://i.ibb.co.com/8F0wHCY/1.png", lokasi: "Bali, Indonesia" },
+      { id: 903, title: "Villa Tepi Pantai", image: "https://i.ibb.co.com/gLqm9Q0M/5.png", lokasi: "Bali, Indonesia" },
+      { id: 904, title: "Villa Tepi Pantai", image: "https://i.ibb.co.com/TM3H2p3j/4.png", lokasi: "Bali, Indonesia" },
+      { id: 905, title: "Villa Tepi Pantai", image: "https://i.ibb.co.com/svzYpKKW/3.png", lokasi: "Bali, Indonesia" },
+      { id: 905, title: "Villa Tepi Pantai", image: "https://i.ibb.co.com/5XyLhNHM/2.png", lokasi: "Bali, Indonesia" },
+      { id: 906, title: "Villa Tepi Pantai", image: "https://i.ibb.co.com/DPTWnS2q/7.png", lokasi: "Bali, Indonesia" },
+      { id: 907, title: "Villa Tepi Pantai", image: "https://i.ibb.co.com/hRLVvfV5/6.png", lokasi: "Bali, Indonesia" },
+      { id: 908, title: "Villa Tepi Pantai", image: "https://i.ibb.co.com/8nRc7DjN/9.png", lokasi: "Bali, Indonesia" },
+    ],
+    "Omah Bagus": [
+      { id: 901, title: "Design Kantor", image: "https://i.ibb.co.com/TMMpVzrN/1.jpg", lokasi: "Yogyakarta" },
+      { id: 902, title: "Villa Tepi Pantai", image: "https://i.ibb.co.com/vCJY9wnD/Exterior-1.jpg", lokasi: "Bali, Indonesia" },
+      { id: 903, title: "Villa Tepi Pantai", image: "https://i.ibb.co.com/mF9QwGxf/Dapur-1.jpg", lokasi: "Bali, Indonesia" },
+      { id: 904, title: "Villa Tepi Pantai", image: "https://i.ibb.co.com/NdgWp429/EXTERIOR-3.jpg", lokasi: "Bali, Indonesia" },
+      { id: 905, title: "Villa Tepi Pantai", image: "https://i.ibb.co.com/tpM1ydMj/Exterior-2.jpg", lokasi: "Bali, Indonesia" },
+      { id: 905, title: "Villa Tepi Pantai", image: "https://i.ibb.co.com/99R5rsnM/Mushollah.jpg", lokasi: "Bali, Indonesia" },
+      { id: 906, title: "Villa Tepi Pantai", image: "https://i.ibb.co.com/nq46bDCW/R-Belakang.jpg", lokasi: "Bali, Indonesia" },
+      { id: 907, title: "Villa Tepi Pantai", image: "https://i.ibb.co.com/gL98J0mv/Taman.jpg", lokasi: "Bali, Indonesia" },
+      { id: 908, title: "Villa Tepi Pantai", image: "https://i.ibb.co.com/Ldfk9gkz/R-Keluarga.jpg", lokasi: "Bali, Indonesia" },
+      { id: 909, title: "Villa Tepi Pantai", image: "https://i.ibb.co.com/qLJL4sVp/Toko.jpg", lokasi: "Bali, Indonesia" },
+      { id: 910, title: "Villa Tepi Pantai", image: "https://i.ibb.co.com/gbLM7nmX/Toko-1.jpg", lokasi: "Bali, Indonesia" },
+    ],
   },
   "commercial": {
-    "Ruko": [{ id: 401, title: "Ruko Business Park", image: commercialImage1, lokasi: "Jakarta, Indonesia" }],
-    "Kantor": [
-      { id: 501, title: "Office Tower 88", image: commercialImage1, lokasi: "Jakarta, Indonesia" },
-      { id: 502, title: "Creative Hub Space", image: commercialImage1, lokasi: "Jakarta, Indonesia" },
+    // "Ruko": [{ id: 401, title: "Ruko Business Park", image: commercialImage1, lokasi: "Jakarta, Indonesia" }],
+    "Small Caffe": [
+      { id: 501, title: "Design Caffe Modern", image: "https://i.ibb.co.com/MyRZFJ9m/1.jpg", lokasi: "Sukoharjo" },
+      { id: 502, title: "Creative Hub Space", image: "https://i.ibb.co.com/CK841rnM/3.jpg", lokasi: "Jakarta, Indonesia" },
+      { id: 502, title: "Creative Hub Space", image: "https://i.ibb.co.com/pjW08Hcn/4-0.jpg", lokasi: "Jakarta, Indonesia" },
+      { id: 502, title: "Creative Hub Space", image: "https://i.ibb.co.com/Nnd0v5Mf/5.jpg", lokasi: "Jakarta, Indonesia" },
+      { id: 502, title: "Creative Hub Space", image: "https://i.ibb.co.com/7dvqJ6Kj/BAR-1.jpg", lokasi: "Jakarta, Indonesia" },
+      { id: 502, title: "Creative Hub Space", image:"https://i.ibb.co.com/BKBDn3vP/BAR.jpg", lokasi: "Jakarta, Indonesia" },
+      { id: 502, title: "Creative Hub Space", image:"https://i.ibb.co.com/TqKRB1Wz/MEJA-KURSI-1.jpg", lokasi: "Jakarta, Indonesia" },
+      { id: 502, title: "Creative Hub Space", image:"https://i.ibb.co.com/TqJqBxD4/IMG-20201219-WA0025.jpg", lokasi: "Jakarta, Indonesia" },
+    ],
+     "Kos Pak Bayu ": [
+      { id: 301, title: "Design Hunian Kos ", image: "https://i.ibb.co.com/RpgMWzfM/5.jpg", lokasi: "Sukoharjo" },
+      { id: 302, title: "The Peak Apartment", image: "https://i.ibb.co.com/60dtCzBC/6.jpg", lokasi: "Jakarta, Indonesia" },
+      // { id: 303, title: "The Peak Apartment", image: residentialImage19, lokasi: "Jakarta, Indonesia" },
+      // { id: 304, title: "The Peak Apartment", image: residentialImage20, lokasi: "Jakarta, Indonesia" },
+      { id: 305, title: "The Peak Apartment", image: "https://i.ibb.co.com/nNyPttP9/1-1.jpg", lokasi: "Jakarta, Indonesia" },
+      // { id: 306, title: "The Peak Apartment", image: residentialImage22, lokasi: "Jakarta, Indonesia" },
+      { id: 307, title: "The Peak Apartment", image: "https://i.ibb.co.com/CNyhV6F/2.jpg", lokasi: "Jakarta, Indonesia" },
+      { id: 308, title: "The Peak Apartment", image: "https://i.ibb.co.com/fV7m0zrF/4.jpg", lokasi: "Jakarta, Indonesia" },
     ],
   },
   "BIM": {
-    "Sekolah": [{ id: 701, title: "Sekolah Harapan Bangsa", image: institutionalImage1, lokasi: "Jakarta, Indonesia" }],
-    "Rumah Sakit": [{ id: 801, title: "RS Mitra Keluarga", image: institutionalImage1, lokasi: "Jakarta, Indonesia" }],
+    "Sekolah": [{ id: 701, title: "Sekolah Harapan Bangsa", image:"https://i.ibb.co.com/fV7m0zrF/4.jpg", lokasi: "Jakarta, Indonesia" }],
+    "Rumah Sakit": [{ id: 801, title: "RS Mitra Keluarga", image: "https://i.ibb.co.com/fV7m0zrF/4.jpg", lokasi: "Jakarta, Indonesia" }],
   },
   // "industrial": {
   //   "Gudang": [{ id: 901, title: "Gudang Logistik Sentral", image: industrialImage1, lokasi: "Jakarta, Indonesia" }],
@@ -276,8 +335,9 @@ const Portfolio: FC = () => {
                               alt={currentProject.title}
                               fill // Menggunakan 'fill' untuk mengisi container parent (div "relative w-full h-96...")
                               style={{ objectFit: 'cover' }} // Ganti className="w-full h-full object-cover" dengan style={{ objectFit: 'cover' }}
-                              priority
+                              unoptimized
                               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                              loading="lazy"
 
                             // Menghapus width, height, unoptimized, dan loading="lazy" yang tidak diperlukan lagi
                             />  
@@ -366,7 +426,8 @@ const Portfolio: FC = () => {
                     alt={currentModalProject.title}
                     fill // Menggunakan 'fill' untuk mengisi container parent (div "relative w-[90vw] h-[90vh]...")
                     style={{ objectFit: 'contain' }} // Ganti className="w-full h-full object-contain" dengan style={{ objectFit: 'contain' }}
-                    
+                   unoptimized
+                   loading="lazy"
                   />
                 </motion.div>
               </AnimatePresence>
