@@ -25,7 +25,7 @@ export default function CVSection() {
             {/* Content on right */}
             <div className="w-full md:w-1/2 space-y-6">
                 <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                    Temukan pengalaman profesional saya dalam bidang Building Information Modeling (BIM) beserta portofolio proyek-proyek unggulan yang telah saya kerjakan. Dari desain arsitektur hingga simulasi 3D, semuanya dirangkum dalam CV lengkap ini untuk mendukung karir Anda selanjutnya.
+                    Temukan pengalaman profesional saya dalam bidang Building Information Modeling (BIM) beserta portofolio proyek-proyek unggulan yang telah saya kerjakan. Dari desain arsitektur hingga simulasi 3D.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                     <Link
