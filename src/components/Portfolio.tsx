@@ -104,10 +104,10 @@ const portfolioData: PortfolioData = {
       { id: 502, title: "Creative Hub Space", image: commercialImage1, lokasi: "Jakarta, Indonesia" },
     ],
   },
-  "BIM": {
-    "Sekolah": [{ id: 701, title: "Sekolah Harapan Bangsa", image: institutionalImage1, lokasi: "Jakarta, Indonesia" }],
-    "Rumah Sakit": [{ id: 801, title: "RS Mitra Keluarga", image: institutionalImage1, lokasi: "Jakarta, Indonesia" }],
-  },
+  // "BIM": {
+  //   "Sekolah": [{ id: 701, title: "Sekolah Harapan Bangsa", image: institutionalImage1, lokasi: "Jakarta, Indonesia" }],
+  //   "Rumah Sakit": [{ id: 801, title: "RS Mitra Keluarga", image: institutionalImage1, lokasi: "Jakarta, Indonesia" }],
+  // },
   // "industrial": {
   //   "Gudang": [{ id: 901, title: "Gudang Logistik Sentral", image: industrialImage1, lokasi: "Jakarta, Indonesia" }],
   //   "Pabrik": [{ id: 1001, title: "Pabrik Manufaktur Jaya", image: industrialImage1, lokasi: "Jakarta, Indonesia" }],
@@ -272,15 +272,15 @@ const Portfolio: FC = () => {
                             className="absolute inset-0 w-full h-full"
                           >
                            <Image
-                              src={currentProject.image}
-                              alt={currentProject.title}
-                              fill // Menggunakan 'fill' untuk mengisi container parent (div "relative w-full h-96...")
-                              style={{ objectFit: 'cover' }} // Ganti className="w-full h-full object-cover" dengan style={{ objectFit: 'cover' }}
-                              priority
-                              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            src={currentProject.image}
+                            alt={currentProject.title}
+                            fill // Menggunakan 'fill' untuk mengisi container parent (div "relative w-full h-96...")
+                            style={{ objectFit: 'cover' }} // Ganti className="w-full h-full object-cover" dengan style={{ objectFit: 'cover' }}
+                            priority
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
 
                             // Menghapus width, height, unoptimized, dan loading="lazy" yang tidak diperlukan lagi
-                            />  
+                            />  
                          <div className="absolute inset-0 bg-black/40 transition-opacity duration-300 group-hover:bg-black/20" />                       </motion.div>
                         </AnimatePresence>
                         <div className="absolute bottom-0 text-start left-0 right-0 p-6 text-white flex flex-col gap-2">
@@ -362,11 +362,11 @@ const Portfolio: FC = () => {
                   className="w-full h-full"
                 >
                   <Image
-                     src={currentModalProject.image}
-                    alt={currentModalProject.title}
-                    fill // Menggunakan 'fill' untuk mengisi container parent (div "relative w-[90vw] h-[90vh]...")
-                    style={{ objectFit: 'contain' }} // Ganti className="w-full h-full object-contain" dengan style={{ objectFit: 'contain' }}
-                    
+                     src={currentModalProject.image}
+                     alt={currentModalProject.title}
+                     fill // Menggunakan 'fill' untuk mengisi container parent (div "relative w-[90vw] h-[90vh]...")
+                     style={{ objectFit: 'contain' }} // Ganti className="w-full h-full object-contain" dengan style={{ objectFit: 'contain' }}
+
                   />
                 </motion.div>
               </AnimatePresence>
