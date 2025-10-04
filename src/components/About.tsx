@@ -80,14 +80,19 @@ const About = () => {
       <div className="container mx-auto px-6">
         
         <div className="text-center">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-gray-800 mb-4">
+          {/* <h2 className="text-3xl md:text-4xl font-extrabold text-gray-800 mb-4">
             Layanan <span className="text-yellow-400">BIM </span>, Design Arsitektur &  
-            {/* <span className="text-yellow-400">Konstruksi Bangunan</span> */}
+          </h2> */}
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-brand-dark">
+            Layanan <span className="text-brand-gold">BIM</span>, Design Arsitektur &  
           </h2>
-          <h2 className="text-3xl md:text-4xl font-extrabold text-gray-800 mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-brand-dark">
+            <span className="text-brand-gold">Konstruksi Bangunan</span>
+          </h2>
+          {/* <h2 className="text-3xl md:text-4xl font-extrabold text-gray-800 mb-4">
             <span className="text-yellow-400">Konstruksi Bangunan</span>
-          </h2>
-          <p className="max-w-5xl mx-auto text-lg text-gray-600 mb-5">
+          </h2> */}
+          <p className="text-xl text-muted-foreground max-w-5xl mx-auto mb-5">
             Alfath Archibim, menghadirkan solusi arsitektur dan konstruksi yang menyatukan desain inovatif dengan fungsi yang benar-benar Anda butuhkan. Dengan dukungan teknologi BIM terbaru dan tim arsitek berpengalaman , kami memastikan setiap detail bangunan dari konsep hingga berdiri tepat , efisien dan sesuai impian anda . 
           </p>
           {/* <p className="max-w-3xl mx-auto text-lg text-gray-600 mb-5">

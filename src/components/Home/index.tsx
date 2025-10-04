@@ -5,6 +5,7 @@ import Portfolio from "@/components/Portfolio";
 import ProjectCategories from "@/components/ProjectCategories";
 import Blog from "@/components/Blog";
 import Footer from "@/components/Footer"
+import CvandBimPortfolio from "@/components/CvandBimPortfolio";
 
 export default function Home() {
     return <div className="min-h-screen">
@@ -12,6 +13,7 @@ export default function Home() {
       <Hero />
       <About />
       <Portfolio />
+      <CvandBimPortfolio />
       <ProjectCategories />
       <Blog />
       <Footer />
