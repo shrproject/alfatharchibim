@@ -2,220 +2,392 @@
 
 "use client";
 
-import { useState, useEffect, useRef, useCallback, FC } from "react";
-import { Button } from "@/components/ui/button"; 
-import { ExternalLink, ChevronLeft, ChevronRight } from "lucide-react";
+import { useState, useCallback, FC, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { ExternalLink, ChevronLeft, ChevronRight, X } from "lucide-react";
 import Image, { StaticImageData } from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 
-// Path Gambar Asli
-import residentialImage from "@/assets/project-residential-1.jpg";
-import cafeImage from "@/assets/project-cafe-1.jpg";
-import institutionalImage from "@/assets/project-institutional-1.jpg";
-import industrialImage from "@/assets/project-institutional-1.jpg"; 
+// --- Path Gambar ---
+import residentialImage1 from "@/assets/Residence/1.jpg";
+import residentialImage2 from "@/assets/Residence/3.jpg";
+import residentialImage3 from "@/assets/Residence/4.jpg";
+import residentialImage4 from "@/assets/Residence/6.jpg";
+import residentialImage5 from "@/assets/Residence/9.1.jpg";
+import residentialImage6 from "@/assets/Residence/10.jpg";
+import residentialImage8 from "@/assets/Residence/BC/6.jpg";
+import residentialImage9 from "@/assets/Residence/BC/BC HOUSE 1 - 1.jpg";
+import residentialImage10 from "@/assets/Residence/BC/BC HOUSE 1 - 3.jpg";
+import residentialImage11 from "@/assets/Residence/BC/BC HOUSE 1 - 4.jpg";
+import residentialImage12 from "@/assets/Residence/BC/BC HOUSE 1 - 5.jpg";
+import residentialImage13 from "@/assets/Residence/BC/BC HOUSE 1 - 6.jpg";
+import residentialImage14 from "@/assets/Residence/BC/1.jpg";
+import residentialImage15 from "@/assets/Residence/BC/4.jpg";
+import residentialImage16 from "@/assets/Residence/BC/5.jpg";
+import residentialImage17 from "@/assets/Residence/Kos_Bayu/1 (1).jpg";
+import residentialImage18 from "@/assets/Residence/Kos_Bayu/2.jpg";
+import residentialImage19 from "@/assets/Residence/Kos_Bayu/3.1.jpg";
+import residentialImage20 from "@/assets/Residence/Kos_Bayu/3.jpg";
+import residentialImage21 from "@/assets/Residence/Kos_Bayu/4.1.jpg";
+import residentialImage22 from "@/assets/Residence/Kos_Bayu/4.jpg";
+import residentialImage23 from "@/assets/Residence/Kos_Bayu/5.jpg";
+import residentialImage24 from "@/assets/Residence/Kos_Bayu/6.jpg";
+// import residentialImage7 from "@/assets/Residence/11.1.jpg";
+import commercialImage1 from "@/assets/project-cafe-1.jpg";
+import institutionalImage1 from "@/assets/project-institutional-1.jpg";
+import industrialImage1 from "@/assets/project-institutional-1.jpg";
+const residentialImage7 = "https://i.ibb.co.com/JFGX9xyX/11-1.jpg";
 
-type Category = {
-  id: string;
-  name: string;
-};
-
+// --- Definisi Tipe Data ---
 type Project = {
   id: number;
   title: string;
-  category: string;
-  image: StaticImageData;
-  description: string;
-  location: string;
+  image: StaticImageData | string;
+  lokasi: string;
 };
+
+type SubCategoryData = {
+  [subCategoryName: string]: Project[];
+};
+
+type PortfolioData = {
+  [categoryName: string]: SubCategoryData;
+};
+
+type ModalState = {
+  subCategoryName: string;
+  selectedIndex: number;
+} | null;
+
+
+// --- Struktur Data ---
+const portfolioData: PortfolioData = {
+  "residential": {
+    "Dev House": [
+      { id: 101, title: "Desain rumah kontemporer", image: residentialImage1, lokasi: "Jakarta, Indonesia" },
+      { id: 102, title: "Rumah Tropis Minimalis", image: residentialImage2, lokasi: "Bandung, Indonesia" },
+      { id: 103, title: "Rumah Tropis Minimalis", image: residentialImage3, lokasi: "Bandung, Indonesia" },
+      { id: 104, title: "Rumah Tropis Minimalis", image: residentialImage4, lokasi: "Bandung, Indonesia" },
+      { id: 105, title: "Rumah Tropis Minimalis", image: residentialImage5, lokasi: "Bandung, Indonesia" },
+      { id: 106, "title": "Rumah Tropis Minimalis", image: residentialImage6, lokasi: "Bandung, Indonesia" },
+      { id: 107, title: "Rumah Tropis Minimalis", image: residentialImage7, lokasi: "Bandung, Indonesia" },
+    ],
+    "BC HOUSE": [
+      { id: 201, title: "Gambar Perencanaan Rumah Tinggal Bayu Caroko", image: residentialImage8, lokasi: "Perumahan The Orchard Town House , Ambon Maluku" },
+      { id: 202, title: "Green Valley Residence", image: residentialImage9, lokasi: "Perumahan The Orchard Town House , Ambon Maluku" },
+      { id: 204, title: "Citra Garden", image: residentialImage10, lokasi: "Perumahan The Orchard Town House , Ambon Maluku" },
+      { id: 205, title: "Citra Garden", image: residentialImage11, lokasi: "Perumahan The Orchard Town House , Ambon Maluku" },
+      { id: 206, title: "Citra Garden", image: residentialImage12, lokasi: "Perumahan The Orchard Town House , Ambon Maluku" },
+      { id: 207, title: "Citra Garden", image: residentialImage13, lokasi: "Perumahan The Orchard Town House , Ambon Maluku" },
+      { id: 208, title: "Citra Garden", image: residentialImage14, lokasi: "Perumahan The Orchard Town House , Ambon Maluku" },
+      { id: 209, title: "Citra Garden", image: residentialImage15, lokasi: "Perumahan The Orchard Town House , Ambon Maluku" },
+      { id: 2010, title: "Citra Garden", image: residentialImage16, lokasi: "Perumahan The Orchard Town House , Ambon Maluku" },
+    ],
+    "Kos Pak Bayu ": [
+      { id: 301, title: "Design Hunian Kos ", image: residentialImage17, lokasi: "Sukoharjo" },
+      { id: 302, title: "The Peak Apartment", image: residentialImage18, lokasi: "Jakarta, Indonesia" },
+      // { id: 303, title: "The Peak Apartment", image: residentialImage19, lokasi: "Jakarta, Indonesia" },
+      // { id: 304, title: "The Peak Apartment", image: residentialImage20, lokasi: "Jakarta, Indonesia" },
+      { id: 305, title: "The Peak Apartment", image: residentialImage21, lokasi: "Jakarta, Indonesia" },
+      // { id: 306, title: "The Peak Apartment", image: residentialImage22, lokasi: "Jakarta, Indonesia" },
+      { id: 307, title: "The Peak Apartment", image: residentialImage23, lokasi: "Jakarta, Indonesia" },
+      { id: 308, title: "The Peak Apartment", image: residentialImage24, lokasi: "Jakarta, Indonesia" },
+    ],
+    "Villa": [
+      { id: 401, title: "Villa Tepi Pantai", image: residentialImage4, lokasi: "Bali, Indonesia" }
+    ]
+  },
+  "commercial": {
+    "Ruko": [{ id: 401, title: "Ruko Business Park", image: commercialImage1, lokasi: "Jakarta, Indonesia" }],
+    "Kantor": [
+      { id: 501, title: "Office Tower 88", image: commercialImage1, lokasi: "Jakarta, Indonesia" },
+      { id: 502, title: "Creative Hub Space", image: commercialImage1, lokasi: "Jakarta, Indonesia" },
+    ],
+  },
+  "BIM": {
+    "Sekolah": [{ id: 701, title: "Sekolah Harapan Bangsa", image: institutionalImage1, lokasi: "Jakarta, Indonesia" }],
+    "Rumah Sakit": [{ id: 801, title: "RS Mitra Keluarga", image: institutionalImage1, lokasi: "Jakarta, Indonesia" }],
+  },
+  // "industrial": {
+  //   "Gudang": [{ id: 901, title: "Gudang Logistik Sentral", image: industrialImage1, lokasi: "Jakarta, Indonesia" }],
+  //   "Pabrik": [{ id: 1001, title: "Pabrik Manufaktur Jaya", image: industrialImage1, lokasi: "Jakarta, Indonesia" }],
+  // }
+};
+
 
 const Portfolio: FC = () => {
   const [activeCategory, setActiveCategory] = useState<string>("residential");
-  const [currentItemIndex, setCurrentItemIndex] = useState<number>(0);
 
-  const ITEMS_PER_PAGE = 3;
-  const AUTOPLAY_INTERVAL = 5000;
-  const THROTTLE_DELAY = 500;
-
-  const autoplayInterval = useRef<NodeJS.Timeout | null>(null);
-  const throttleTimeout = useRef<NodeJS.Timeout | null>(null);
-
-  const categories: Category[] = [
-    { id: "residential", name: "Residensial" },
-    { id: "commercial", name: "Komersial" },
-    { id: "institutional", name: "Institusi" },
-    { id: "industrial", name: "Industrial" },
-  ];
-
-  // PERBAIKAN 1: Semua ID proyek dibuat unik untuk menghilangkan error key
-  const projects: Project[] = [
-    { id: 1, title: "Rumah Keluarga Modern", category: "residential", image: residentialImage, description: "Desain rumah kontemporer.", location: "Jakarta, Indonesia" },
-    { id: 13, title: "Apartemen Urban", category: "residential", image: residentialImage, description: "Hunian vertikal modern.", location: "Jakarta, Indonesia" },
-    { id: 14, title: "Townhouse Eksklusif", category: "residential", image: residentialImage, description: "Kompleks hunian privat.", location: "Jakarta, Indonesia" },
-    { id: 15, title: "Townhouse Eksklusif", category: "residential", image: residentialImage, description: "Kompleks hunian privat.", location: "Jakarta, Indonesia" },
-    { id: 2, title: "Coffee House Urban", category: "commercial", image: cafeImage, description: "Kafe industrial-chic modern.", location: "Bandung, Indonesia" },
-    { id: 3, title: "Kompleks Kantor Korporat", category: "institutional", image: institutionalImage, description: "Ruang kerja profesional.", location: "Surabaya, Indonesia" },
-    { id: 4, title: "Villa Tepi Pantai", category: "residential", image: residentialImage, description: "Hunian mewah pemandangan laut.", location: "Bali, Indonesia" },
-    { id: 5, title: "Perpustakaan Umum", category: "institutional", image: institutionalImage, description: "Pusat pengetahuan modern.", location: "Yogyakarta, Indonesia" },
-    { id: 6, title: "Restoran & Lounge", category: "commercial", image: cafeImage, description: "Tempat makan elegan.", location: "Medan, Indonesia" },
-    { id: 11, title: "Retail Space Modern", category: "commercial", image: cafeImage, description: "Area perbelanjaan baru.", location: "Medan, Indonesia" },
-    { id: 12, title: "Boutique Hotel", category: "commercial", image: cafeImage, description: "Akomodasi penuh gaya.", location: "Medan, Indonesia" },
-    { id: 7, title: "Pabrik Manufaktur", category: "industrial", image: industrialImage, description: "Fasilitas produksi efisien.", location: "Semarang, Indonesia" },
-    { id: 8, title: "Gudang Logistik", category: "industrial", image: industrialImage, description: "Pusat distribusi modern.", location: "Bekasi, Indonesia" },
-    { id: 9, title: "Pusat Data Center", category: "industrial", image: industrialImage, description: "Infrastruktur data terpadu.", location: "Bekasi, Indonesia" },
-    { id: 10, title: "Kawasan Industri", category: "industrial", image: industrialImage, description: "Area industri terintegrasi.", location: "Bekasi, Indonesia" },
-  ];
-
-  const filteredProjects = projects.filter((project) => project.category === activeCategory);
-  const lastPossibleIndex = filteredProjects.length > ITEMS_PER_PAGE ? filteredProjects.length - ITEMS_PER_PAGE : 0;
-
-  // PERBAIKAN 2: Logika `nextPage` dan `prevPage` disempurnakan agar tidak macet
-  const nextPage = useCallback(() => {
-    if (filteredProjects.length <= ITEMS_PER_PAGE) return;
-    setCurrentItemIndex(prev => {
-        const nextIndex = prev + ITEMS_PER_PAGE;
-        // Jika lompatan berikutnya melebihi batas, pergi ke indeks terakhir yang mungkin
-        if (nextIndex > lastPossibleIndex) {
-            // Namun jika sudah di akhir, kembali ke awal
-            return prev === lastPossibleIndex ? 0 : lastPossibleIndex;
-        }
-        return nextIndex;
+  const [subCategoryIndexes, setSubCategoryIndexes] = useState(() => {
+    const initialState: { [key: string]: number } = {};
+    Object.values(portfolioData).forEach(subCategories => {
+      Object.keys(subCategories).forEach(subCategoryName => {
+        initialState[subCategoryName] = 0;
+      });
     });
-  }, [filteredProjects.length, lastPossibleIndex]);
+    return initialState;
+  });
 
-  const prevPage = useCallback(() => {
-    if (filteredProjects.length <= ITEMS_PER_PAGE) return;
-    setCurrentItemIndex(prev => {
-        const nextIndex = prev - ITEMS_PER_PAGE;
-        // Jika lompatan mundur kurang dari 0, pergi ke awal
-        if (nextIndex < 0) {
-            // Namun jika sudah di awal, pergi ke akhir
-            return prev === 0 ? lastPossibleIndex : 0;
-        }
-        return nextIndex;
-    });
-  }, [lastPossibleIndex]);
-
-  // Fungsi geser 1 item (untuk hover), tidak berubah
-  const slideNextItemOnHover = useCallback(() => {
-    if (filteredProjects.length <= ITEMS_PER_PAGE) return;
-    setCurrentItemIndex(prev => (prev >= lastPossibleIndex ? 0 : prev + 1));
-  }, [filteredProjects.length, lastPossibleIndex]);
-
-
-  const handleHover = useCallback(() => {
-    if (throttleTimeout.current) return;
-    throttleTimeout.current = setTimeout(() => {
-        slideNextItemOnHover();
-        throttleTimeout.current = null;
-    }, THROTTLE_DELAY);
-  }, [slideNextItemOnHover]);
-
-  useEffect(() => {
-    setCurrentItemIndex(0);
-  }, [activeCategory]);
+  const [modalState, setModalState] = useState<ModalState>(null);
+  const [mainCarouselIndex, setMainCarouselIndex] = useState<number>(0);
   
-  // Auto-play sekarang memanggil `nextPage` yang sudah diperbaiki
+  // --- AWAL PERUBAHAN ---
+  // State untuk menyimpan jumlah item per halaman secara dinamis
+  const [itemsPerPage, setItemsPerPage] = useState(3);
+
   useEffect(() => {
-    if (filteredProjects.length > ITEMS_PER_PAGE) {
-      if (autoplayInterval.current) clearInterval(autoplayInterval.current);
-      autoplayInterval.current = setInterval(nextPage, AUTOPLAY_INTERVAL);
-    } else {
-        if (autoplayInterval.current) clearInterval(autoplayInterval.current);
-    }
-    return () => {
-      if (autoplayInterval.current) clearInterval(autoplayInterval.current);
+    const handleResize = () => {
+        if (window.innerWidth < 768) { // Mobile
+            setItemsPerPage(1);
+        } else if (window.innerWidth < 1024) { // Tablet
+            setItemsPerPage(2);
+        } else { // Desktop
+            setItemsPerPage(3);
+        }
     };
-  }, [nextPage, filteredProjects.length]);
 
-  const handleMouseEnter = () => {
-    if (autoplayInterval.current) clearInterval(autoplayInterval.current);
-    handleHover();
-  };
+    // Panggil sekali saat komponen dimuat
+    handleResize();
 
-  const handleMouseLeave = () => {
-    if (filteredProjects.length > ITEMS_PER_PAGE) {
-      if (autoplayInterval.current) clearInterval(autoplayInterval.current);
-      autoplayInterval.current = setInterval(nextPage, AUTOPLAY_INTERVAL);
-    }
-  };
+    // Tambahkan event listener untuk memantau perubahan ukuran window
+    window.addEventListener('resize', handleResize);
+
+    // Hapus event listener saat komponen dibongkar untuk mencegah memory leak
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+  // --- AKHIR PERUBAHAN ---
+
+  const handleImageChange = useCallback((subCategoryName: string, direction: 'next' | 'prev') => {
+    const projects = portfolioData[activeCategory as keyof typeof portfolioData][subCategoryName];
+    if (!projects || projects.length <= 1) return;
+    setSubCategoryIndexes(prevIndexes => {
+      const currentIndex = prevIndexes[subCategoryName];
+      const lastIndex = projects.length - 1;
+      let newIndex = (direction === 'next')
+        ? (currentIndex >= lastIndex ? 0 : currentIndex + 1)
+        : (currentIndex <= 0 ? lastIndex : currentIndex - 1);
+      return { ...prevIndexes, [subCategoryName]: newIndex };
+    });
+  }, [activeCategory]);
 
   const handleCategoryChange = (categoryId: string) => {
     setActiveCategory(categoryId);
+    setMainCarouselIndex(0);
   };
-  
+
+  const openModal = (subCategoryName: string, selectedIndex: number) => {
+    setModalState({ subCategoryName, selectedIndex });
+  };
+
+  const closeModal = () => setModalState(null);
+
+  const handleModalNav = (direction: 'next' | 'prev') => {
+    if (!modalState) return;
+    const { subCategoryName } = modalState;
+    const projects = portfolioData[activeCategory as keyof typeof portfolioData][subCategoryName];
+    const lastIndex = projects.length - 1;
+    setModalState(current => {
+      if (!current) return null;
+      let newIndex = (direction === 'next')
+        ? (current.selectedIndex >= lastIndex ? 0 : current.selectedIndex + 1)
+        : (current.selectedIndex <= 0 ? lastIndex : current.selectedIndex - 1);
+      return { ...current, selectedIndex: newIndex };
+    });
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (!modalState) return;
+      if (event.key === 'ArrowRight') handleModalNav('next');
+      else if (event.key === 'ArrowLeft') handleModalNav('prev');
+      else if (event.key === 'Escape') closeModal();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [modalState, activeCategory]);
+
+  const subCategoriesToShow = Object.entries(portfolioData[activeCategory as keyof typeof portfolioData]);
+
+  // --- PERUBAHAN: Menggunakan state 'itemsPerPage' ---
+  const lastPossibleMainIndex = subCategoriesToShow.length > itemsPerPage ? subCategoriesToShow.length - itemsPerPage : 0;
+
+  const nextMainItem = () => {
+    setMainCarouselIndex(p => p >= lastPossibleMainIndex ? 0 : p + 1);
+  };
+  const prevMainItem = () => {
+    setMainCarouselIndex(p => p <= 0 ? lastPossibleMainIndex : p - 1);
+  };
+
+  const currentModalProject = modalState ? portfolioData[activeCategory as keyof typeof portfolioData][modalState.subCategoryName][modalState.selectedIndex] : null;
+
   return (
     <section id="portfolio" className="py-20 bg-muted/50">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-brand-dark">
+        <div className="text-center mb-8">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-brand-dark">
             <span className="text-brand-gold">Portfolio</span> Kami
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">Jelajahi koleksi beragam proyek arsitektur kami.</p>
         </div>
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
-          {categories.map((category) => (
+
+        <div className="flex flex-wrap justify-center gap-4 mb-5">
+          {Object.keys(portfolioData).map((categoryName) => (
             <Button
-              key={category.id}
-              variant={activeCategory === category.id ? "premium" : "ghost"}
-              onClick={() => handleCategoryChange(category.id)}
-              className="transition-smooth"
+              key={categoryName}
+              variant={activeCategory === categoryName ? "premium" : "ghost"}
+              onClick={() => handleCategoryChange(categoryName)}
+              className="transition-smooth capitalize"
             >
-              {category.name}
+              {categoryName}
             </Button>
           ))}
         </div>
 
-        <div 
-          className="relative max-w-7xl mx-auto" 
-          onMouseEnter={handleMouseEnter} 
-          onMouseLeave={handleMouseLeave}
-        >
-          {filteredProjects.length > 0 ? (
-            <>
-              <div className="relative overflow-hidden">
-                <div 
-                  className="flex transition-transform duration-700 ease-in-out" 
-                  style={{ transform: `translateX(-${currentItemIndex * (100 / ITEMS_PER_PAGE)}%)` }}
-                >
-                  {filteredProjects.map((project) => (
-                      <div key={project.id} className="flex-shrink-0" style={{ width: `${100 / ITEMS_PER_PAGE}%` }}>
-                        <div className="p-1 md:p-4 h-full">
-                           <div className="relative group overflow-hidden rounded-xl shadow-elegant h-full">
-                            <Image src={project.image} alt={project.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"/>
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                            <div className="absolute bottom-0 left-0 right-0 p-2 md:p-6 text-white">
-                              <h3 className="text-lg md:text-2xl font-bold mb-1 md:mb-2">{project.title}</h3>
-                              <p className="text-sm md:text-base mb-2 text-gray-200 hidden sm:block">{project.description}</p>
-                              <p className="text-sm md:text-base text-brand-gold font-medium">{project.location}</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                </div>
-              </div>
+        <div className="relative max-w-7xl mx-auto">
+          <div className="relative overflow-hidden rounded-xl">
+            <div
+              className="flex transition-transform duration-700 ease-in-out"
+              // --- PERUBAHAN: Menggunakan state 'itemsPerPage' ---
+              style={{ transform: `translateX(-${mainCarouselIndex * (100 / itemsPerPage)}%)` }}
+            >
+              {subCategoriesToShow.map(([subCategoryName, projects]) => {
+                const currentIndex = subCategoryIndexes[subCategoryName];
+                const currentProject = projects[currentIndex];
 
-              {filteredProjects.length > ITEMS_PER_PAGE && (
-                <>
-                  {/* <button onClick={prevPage} className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/30 rounded-full p-2 md:p-3 transition-smooth z-10">
-                    <ChevronLeft className="h-5 w-5 md:h-6 md:w-6 text-white" />
-                  </button>
-                  <button onClick={nextPage} className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/30 rounded-full p-2 md:p-3 transition-smooth z-10">
-                    <ChevronRight className="h-5 w-5 md:h-6 md:w-6 text-white" />
-                  </button> */}
-                </>
-              )}
-            </>
-          ) : (
-            <div className="text-center py-10">
-              <p className="text-muted-foreground">Tidak ada proyek untuk kategori ini.</p>
+                return (
+                  // --- PERUBAHAN: Menggunakan state 'itemsPerPage' ---
+                  <div key={subCategoryName} className="flex-shrink-0" style={{ width: `${100 / itemsPerPage}%` }}>
+                    <div className="p-1 md:p-4 h-full">
+                      <div
+                        className="relative w-full h-96 rounded-xl shadow-elegant overflow-hidden group cursor-pointer"
+                        onClick={() => openModal(subCategoryName, currentIndex)}
+                      >
+                        <AnimatePresence mode="wait">
+                          <motion.div
+                            key={currentProject.id}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.5 }}
+                            className="absolute inset-0 w-full h-full"
+                          >
+                           <Image
+                              src={currentProject.image}
+                              alt={currentProject.title}
+                              fill // Menggunakan 'fill' untuk mengisi container parent (div "relative w-full h-96...")
+                              style={{ objectFit: 'cover' }} // Ganti className="w-full h-full object-cover" dengan style={{ objectFit: 'cover' }}
+                              priority
+                              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+
+                            // Menghapus width, height, unoptimized, dan loading="lazy" yang tidak diperlukan lagi
+                            />  
+                         <div className="absolute inset-0 bg-black/40 transition-opacity duration-300 group-hover:bg-black/20" />                       </motion.div>
+                        </AnimatePresence>
+                        <div className="absolute bottom-0 text-start left-0 right-0 p-6 text-white flex flex-col gap-2">
+                          <h3 className="text-2xl font-bold text-white">{subCategoryName}</h3>
+                          <div className="flex flex-col">
+                            <p className="text-gray-200">{currentProject.title}</p>
+                            <p className="text-yellow-500 font-semibold">{currentProject.lokasi}</p>
+                          </div>
+                          <div className="justify-center items-center group-hover:bg-brand-gold/30 bg-white/20 backdrop-blur-sm px-6 hover:bg-white/30 rounded-full p-2 transition-all z-10"> View More</div>
+                        </div>
+
+                        {projects.length > 1 && (
+                          <>
+                            {/* <button 
+                                onClick={(e) => { e.stopPropagation(); handleImageChange(subCategoryName, 'prev'); }}
+                                className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/30 rounded-full p-2 transition-all z-10"
+                            >
+                                <ChevronLeft className="h-6 w-6 text-white" />
+                            </button>
+                            <button 
+                                onClick={(e) => { e.stopPropagation(); handleImageChange(subCategoryName, 'next'); }}
+                                className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/30 rounded-full p-2 transition-all z-10"
+                            >
+                                <ChevronRight className="h-6 w-6 text-white" />
+                            </button> */}
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
+          </div>
+
+          {/* --- PERBAIKAN: Posisi tombol diubah agar terlihat di mobile --- */}
+          {/* --- PERUBAHAN: Menggunakan state 'itemsPerPage' --- */}
+          {subCategoriesToShow.length > itemsPerPage && (
+            <>
+              <button onClick={prevMainItem} className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/30 rounded-full p-3 transition-smooth z-20">
+                <ChevronLeft className="h-6 w-6 text-white" />
+              </button>
+              <button onClick={nextMainItem} className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/30 rounded-full p-3 transition-smooth z-20">
+                <ChevronRight className="h-6 w-6 text-white" />
+              </button>
+            </>
           )}
         </div>
-
-        <div className="text-center mt-16">
-          <Button variant="premium" size="lg">Lihat Semua Proyek<ExternalLink className="ml-2 h-5 w-5" /></Button>
-        </div>
       </div>
+
+      <AnimatePresence>
+        {modalState && currentModalProject && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center"
+            onClick={closeModal}
+          >
+            <button
+              onClick={(e) => { e.stopPropagation(); handleModalNav('prev'); }}
+              className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 rounded-full p-3 z-50"
+            >
+              <ChevronLeft className="h-8 w-8 text-white" />
+            </button>
+
+            <motion.div
+              className="relative w-[90vw] h-[90vh] max-w-6xl"
+              onClick={(e) => e.stopPropagation()}
+              layout
+            >
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentModalProject.id}
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -50 }}
+                  transition={{ duration: 0.3 }}
+                  className="w-full h-full"
+                >
+                  <Image
+                     src={currentModalProject.image}
+                    alt={currentModalProject.title}
+                    fill // Menggunakan 'fill' untuk mengisi container parent (div "relative w-[90vw] h-[90vh]...")
+                    style={{ objectFit: 'contain' }} // Ganti className="w-full h-full object-contain" dengan style={{ objectFit: 'contain' }}
+                    
+                  />
+                </motion.div>
+              </AnimatePresence>
+            </motion.div>
+
+            <button
+              onClick={(e) => { e.stopPropagation(); handleModalNav('next'); }}
+              className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 rounded-full p-3 z-50"
+            >
+              <ChevronRight className="h-8 w-8 text-white" />
+            </button>
+
+            <button
+              onClick={(e) => { e.stopPropagation(); closeModal(); }}
+              className="absolute top-4 right-4 bg-white/10 hover:bg-white/20 rounded-full p-3 z-50"
+            >
+              <X className="h-7 w-7 text-white" />
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };
