@@ -25,7 +25,7 @@ const Hero = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-6 text-center text-white">
+      <div className="relative z-10 container mx-auto px-6 text-center text-white py-30 lg:py-[unset]">
         <div className="max-w-3xl mx-auto">
           <h1 className="text-3xl md:text-5xl font-bold mb-4 leading-tight">
             Wujudkan Impian Anda Bersama{" "}
@@ -45,9 +45,9 @@ const Hero = () => {
               onClick={openWhatsApp}
               className="group"
             >
-              <MessageCircle className="mr-2 h-4 w-4" />
+              <MessageCircle className="mr-2 h-4 w-4 hidden md:flex" />
               Konsultasi Gratis via WhatsApp
-              <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform hidden md:flex" />
             </Button>
             
             <Button
