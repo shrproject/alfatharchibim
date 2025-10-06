@@ -24,7 +24,7 @@ const Header = () => {
     { name: "Beranda", href: "home" },
     { name: "Profile", href: "about" },
     { name: "Portfolio", href: "portfolio" },
-    { name: "Produk Kami", href: "templates" },
+    // { name: "Produk Kami", href: "templates" },
     { name: "Blog", href: "blog" },
     { name: "Kontak", href: "footer" },
   ];

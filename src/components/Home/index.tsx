@@ -14,7 +14,7 @@ export default function Home() {
       <About />
       <Portfolio />
       <CvandBimPortfolio />
-      <ProjectCategories />
+      {/* <ProjectCategories /> */}
       <Blog />
       <Footer />
     </div>

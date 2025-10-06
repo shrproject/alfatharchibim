@@ -2,7 +2,7 @@
 
 "use client";
 
-import { useState, useCallback, FC, useEffect } from "react";
+import { useState, useCallback, FC, useEffect, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, ChevronLeft, ChevronRight, X } from "lucide-react";
 import Image, { StaticImageData } from "next/image";
@@ -10,29 +10,6 @@ import { motion, AnimatePresence } from "framer-motion";
 
 // --- Path Gambar ---
 // import residentialImage1 from "@/assets/Residence/1.jpg";
-// import residentialImage2 from "@/assets/Residence/3.jpg";
-// import residentialImage3 from "@/assets/Residence/4.jpg";
-// import residentialImage4 from "@/assets/Residence/6.jpg";
-// import residentialImage5 from "@/assets/Residence/9.1.jpg";
-// import residentialImage6 from "@/assets/Residence/10.jpg";
-// import residentialImage8 from "@/assets/Residence/BC/6.jpg";
-// import residentialImage9 from "@/assets/Residence/BC/BC HOUSE 1 - 1.jpg";
-// import residentialImage10 from "@/assets/Residence/BC/BC HOUSE 1 - 3.jpg";
-// import residentialImage11 from "@/assets/Residence/BC/BC HOUSE 1 - 4.jpg";
-// import residentialImage12 from "@/assets/Residence/BC/BC HOUSE 1 - 5.jpg";
-// import residentialImage13 from "@/assets/Residence/BC/BC HOUSE 1 - 6.jpg";
-// import residentialImage14 from "@/assets/Residence/BC/1.jpg";
-// import residentialImage15 from "@/assets/Residence/BC/4.jpg";
-// import residentialImage16 from "@/assets/Residence/BC/5.jpg";
-// import residentialImage17 from "@/assets/Residence/Kos_Bayu/1 (1).jpg";
-// import residentialImage18 from "@/assets/Residence/Kos_Bayu/2.jpg";
-// import residentialImage19 from "@/assets/Residence/Kos_Bayu/3.1.jpg";
-// import residentialImage20 from "@/assets/Residence/Kos_Bayu/3.jpg";
-// import residentialImage21 from "@/assets/Residence/Kos_Bayu/4.1.jpg";
-// import residentialImage22 from "@/assets/Residence/Kos_Bayu/4.jpg";
-// import residentialImage23 from "@/assets/Residence/Kos_Bayu/5.jpg";
-// import residentialImage24 from "@/assets/Residence/Kos_Bayu/6.jpg";
-// import residentialImage7 from "@/assets/Residence/11.1.jpg";
 import commercialImage1 from "@/assets/project-cafe-1.jpg";
 import institutionalImage1 from "@/assets/project-institutional-1.jpg";
 import industrialImage1 from "@/assets/project-institutional-1.jpg";
@@ -47,24 +24,29 @@ const residentialImage8 = "https://i.ibb.co.com/k2h9FHsH/9-1.jpg";
 
 // --- Definisi Tipe Data ---
 type Project = {
-  id: number;
-  title: string;
-  image:  string;
-  lokasi: string;
+  id: number;
+  title: string;
+  image: string;
+  lokasi: string;
 };
 
-type SubCategoryData = {
+type SubCategoryCollection = {
   [subCategoryName: string]: Project[];
 };
 
+type SubCategoryData = {
+  [subCategoryName: string]: Project[];
+};
+
 type PortfolioData = {
-  [categoryName: string]: SubCategoryData;
+  [categoryName: string]: SubCategoryData;
 };
 
 type ModalState = {
-  subCategoryName: string;
-  selectedIndex: number;
+  subCategoryName: string;
+  selectedIndex: number;
 } | null;
+
 
 
 // --- Struktur Data ---
@@ -175,14 +157,16 @@ const portfolioData: PortfolioData = {
 
 
 const Portfolio: FC = () => {
-  const [activeCategory, setActiveCategory] = useState<string>("residential");
-
-  const [subCategoryIndexes, setSubCategoryIndexes] = useState(() => {
+  // OPTIONAL: useMemo agar kalkulasi tidak diulang setiap render
+  const allSubCategories = useMemo(() =>
+    Object.values(portfolioData).reduce<SubCategoryCollection>((acc, currentCategory) => {
+      return { ...acc, ...currentCategory };
+    }, {}),
+  []);
+   const [subCategoryIndexes, setSubCategoryIndexes] = useState(() => {
     const initialState: { [key: string]: number } = {};
-    Object.values(portfolioData).forEach(subCategories => {
-      Object.keys(subCategories).forEach(subCategoryName => {
-        initialState[subCategoryName] = 0;
-      });
+    Object.keys(allSubCategories).forEach(subCategoryName => {
+      initialState[subCategoryName] = 0;
     });
     return initialState;
   });
@@ -217,7 +201,7 @@ const Portfolio: FC = () => {
   // --- AKHIR PERUBAHAN ---
 
   const handleImageChange = useCallback((subCategoryName: string, direction: 'next' | 'prev') => {
-    const projects = portfolioData[activeCategory as keyof typeof portfolioData][subCategoryName];
+    const projects = allSubCategories[subCategoryName as keyof typeof allSubCategories];
     if (!projects || projects.length <= 1) return;
     setSubCategoryIndexes(prevIndexes => {
       const currentIndex = prevIndexes[subCategoryName];
@@ -227,12 +211,12 @@ const Portfolio: FC = () => {
         : (currentIndex <= 0 ? lastIndex : currentIndex - 1);
       return { ...prevIndexes, [subCategoryName]: newIndex };
     });
-  }, [activeCategory]);
+  }, [allSubCategories]);
 
-  const handleCategoryChange = (categoryId: string) => {
-    setActiveCategory(categoryId);
-    setMainCarouselIndex(0);
-  };
+  // const handleCategoryChange = (categoryId: string) => {
+  //   setActiveCategory(categoryId);
+  //   setMainCarouselIndex(0);
+  // };
 
   const openModal = (subCategoryName: string, selectedIndex: number) => {
     setModalState({ subCategoryName, selectedIndex });
@@ -240,10 +224,11 @@ const Portfolio: FC = () => {
 
   const closeModal = () => setModalState(null);
 
-  const handleModalNav = (direction: 'next' | 'prev') => {
+   const handleModalNav = (direction: 'next' | 'prev') => {
     if (!modalState) return;
     const { subCategoryName } = modalState;
-    const projects = portfolioData[activeCategory as keyof typeof portfolioData][subCategoryName];
+    // Gunakan `allSubCategories` sebagai sumber data
+    const projects = allSubCategories[subCategoryName as keyof typeof allSubCategories];
     const lastIndex = projects.length - 1;
     setModalState(current => {
       if (!current) return null;
@@ -263,9 +248,9 @@ const Portfolio: FC = () => {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [modalState, activeCategory]);
+  }, [modalState]);
 
-  const subCategoriesToShow = Object.entries(portfolioData[activeCategory as keyof typeof portfolioData]);
+  const subCategoriesToShow = Object.entries(allSubCategories);
 
   // --- PERUBAHAN: Menggunakan state 'itemsPerPage' ---
   const lastPossibleMainIndex = subCategoriesToShow.length > itemsPerPage ? subCategoriesToShow.length - itemsPerPage : 0;
@@ -277,8 +262,7 @@ const Portfolio: FC = () => {
     setMainCarouselIndex(p => p <= 0 ? lastPossibleMainIndex : p - 1);
   };
 
-  const currentModalProject = modalState ? portfolioData[activeCategory as keyof typeof portfolioData][modalState.subCategoryName][modalState.selectedIndex] : null;
-
+  const currentModalProject = modalState ? allSubCategories[modalState.subCategoryName as keyof typeof allSubCategories][modalState.selectedIndex] : null;
   return (
     <section id="portfolio" className="py-20 bg-muted/50">
       <div className="container mx-auto px-6">
@@ -289,17 +273,10 @@ const Portfolio: FC = () => {
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">Jelajahi koleksi beragam proyek arsitektur kami.</p>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-4 mb-5">
-          {Object.keys(portfolioData).map((categoryName) => (
-            <Button
-              key={categoryName}
-              variant={activeCategory === categoryName ? "premium" : "ghost"}
-              onClick={() => handleCategoryChange(categoryName)}
-              className="transition-smooth capitalize"
-            >
-              {categoryName}
-            </Button>
-          ))}
+        <div className="flex justify-center  mb-10">
+          <div className="text-xl font-semibold text-white rounded-lg bg-gradient-to-r from-brand-dark to-brand-dark/80 text-white hover:from-brand-dark/90 hover:to-brand-dark/70 shadow-elegant tracking-wide px-4 py-2">
+            Architectural design and Construction
+          </div>
         </div>
 
         <div className="relative max-w-7xl mx-auto">
@@ -354,18 +331,6 @@ const Portfolio: FC = () => {
 
                         {projects.length > 1 && (
                           <>
-                            {/* <button 
-                                onClick={(e) => { e.stopPropagation(); handleImageChange(subCategoryName, 'prev'); }}
-                                className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/30 rounded-full p-2 transition-all z-10"
-                            >
-                                <ChevronLeft className="h-6 w-6 text-white" />
-                            </button>
-                            <button 
-                                onClick={(e) => { e.stopPropagation(); handleImageChange(subCategoryName, 'next'); }}
-                                className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/30 rounded-full p-2 transition-all z-10"
-                            >
-                                <ChevronRight className="h-6 w-6 text-white" />
-                            </button> */}
                           </>
                         )}
                       </div>
@@ -376,8 +341,7 @@ const Portfolio: FC = () => {
             </div>
           </div>
 
-          {/* --- PERBAIKAN: Posisi tombol diubah agar terlihat di mobile --- */}
-          {/* --- PERUBAHAN: Menggunakan state 'itemsPerPage' --- */}
+         
           {subCategoriesToShow.length > itemsPerPage && (
             <>
               <button onClick={prevMainItem} className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/30 rounded-full p-3 transition-smooth z-20">
@@ -454,3 +418,7 @@ const Portfolio: FC = () => {
 };
 
 export default Portfolio;
+
+function setSubCategoryIndexes(arg0: (prevIndexes: any) => any) {
+  throw new Error("Function not implemented.");
+}
