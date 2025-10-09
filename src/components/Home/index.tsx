@@ -3,9 +3,9 @@ import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Portfolio from "@/components/Portfolio";
 import ProjectCategories from "@/components/ProjectCategories";
-import Blog from "@/components/Blog";
+// import Blog from "@/components/Blog";
 import Footer from "@/components/Footer"
-import CvandBimPortfolio from "@/components/CvandBimPortfolio";
+import CvandBimPortfolio from "@/components/BimPortfolio";
 
 export default function Home() {
     return <div className="min-h-screen">
@@ -14,8 +14,8 @@ export default function Home() {
       <About />
       <Portfolio />
       <CvandBimPortfolio />
-      {/* <ProjectCategories /> */}
-      <Blog />
+      <ProjectCategories />
+      {/* <Blog /> */}
       <Footer />
     </div>
 }

@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { MapPin, Phone, Mail, Facebook, Instagram, Linkedin } from "lucide-react";
 import alfathLogo from "@/assets/alfath-logo.png";
+import Link from "next/link";
 
 const Footer = () => {
   const quickLinks = [
@@ -65,13 +66,13 @@ const Footer = () => {
             </h3>
             <nav className="space-y-3">
               {quickLinks.map((link) => (
-                <a
+                <Link
                   key={link.name}
                   href={link.href}
                   className="block text-gray-300 hover:text-brand-gold transition-smooth"
                 >
                   {link.name}
-                </a>
+                </Link>
               ))}
             </nav>
           </div>
@@ -83,13 +84,13 @@ const Footer = () => {
             </h3>
             <nav className="space-y-3">
               {services.map((service) => (
-                <a
+                <Link
                   key={service.name}
                   href={service.href}
                   className="block text-gray-300 hover:text-brand-gold transition-smooth"
                 >
                   {service.name}
-                </a>
+                </Link>
               ))}
             </nav>
           </div>
@@ -102,35 +103,36 @@ const Footer = () => {
             <div className="space-y-4">
               <div className="flex items-start space-x-3">
                 <MapPin className="h-5 w-5 text-brand-gold mt-1 flex-shrink-0" />
-                <p className="text-gray-300">
-                  Jl. Contoh Alamat No. 123<br />
-                  Jakarta, Indonesia 12345
+                {/* , Jl. . Panjaitan, Mungseng, Kec. Temanggung, Kabupaten Temanggung, Jawa Tengah 56225 */}
+                <p className="text-gray-300 text-start">
+                  Jl. Mayjend M5FC+M4M<br />
+                  Jawa Tengah, Indonesia 56225
                 </p>
               </div>
               <div className="flex items-center space-x-3">
                 <Phone className="h-5 w-5 text-brand-gold flex-shrink-0" />
-                <a
-                  href="tel:+6281234567890"
+                <Link
+                  href="tel:+6281325966603"
                   className="text-gray-300 hover:text-brand-gold transition-smooth"
                 >
-                  +62 812-3456-7890
-                </a>
+                  +62 813-2596-6603
+                </Link>
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="h-5 w-5 text-brand-gold flex-shrink-0" />
-                <a
-                  href="mailto:info@alfatharchibim.com"
+                <Link
+                  href="mailto:alfatharchibim@gmail.com"
                   className="text-gray-300 hover:text-brand-gold transition-smooth"
                 >
-                  info@alfatharchibim.com
-                </a>
+                  alfatharchibim@gmail.com
+                </Link>
               </div>
             </div>
 
             {/* WhatsApp CTA */}
             <div className="mt-6">
               <button
-                onClick={() => window.open("https://wa.me/6281234567890", "_blank")}
+                onClick={() => window.open("https://wa.me/6281325966603", "_blank")}
                 className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-semibold transition-smooth w-full"
               >
                 Chat di WhatsApp
@@ -143,21 +145,21 @@ const Footer = () => {
         <div className="border-t border-white/10 pt-8">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <p className="text-gray-400 text-center md:text-left">
-              © 2024 Alfath Archibim. All rights reserved.
+              © 2025 Alfath Archibim. All rights reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
-              <a
+              <Link
                 href="#"
                 className="text-gray-400 hover:text-brand-gold transition-smooth text-sm"
               >
                 Kebijakan Privasi
-              </a>
-              <a
+              </Link>
+              <Link
                 href="#"
                 className="text-gray-400 hover:text-brand-gold transition-smooth text-sm"
               >
                 Syarat Layanan
-              </a>
+              </Link>
             </div>
           </div>
         </div>

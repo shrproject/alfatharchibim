@@ -317,7 +317,7 @@ const Portfolio: FC = () => {
                               loading="lazy"
 
                             // Menghapus width, height, unoptimized, dan loading="lazy" yang tidak diperlukan lagi
-                            />  
+                            />  
                          <div className="absolute inset-0 bg-black/40 transition-opacity duration-300 group-hover:bg-black/20" />                       </motion.div>
                         </AnimatePresence>
                         <div className="absolute bottom-0 text-start left-0 right-0 p-6 text-white flex flex-col gap-2">
