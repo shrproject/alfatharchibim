@@ -340,6 +340,19 @@ const Portfolio: FC = () => {
               })}
             </div>
           </div>
+             <div className="text-center mt-16">
+            <p className="text-lg text-muted-foreground mb-6">
+              Punya proyek spesifik dalam pikiran? Mari diskusikan kebutuhan Anda.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <button
+                onClick={() => window.open("https://wa.me/6281234567890", "_blank")}
+                className="bg-green-500 hover:bg-green-600 text-white px-8 py-3 rounded-lg font-semibold transition-smooth shadow-lg hover:shadow-xl"
+              >
+                Dapatkan Konsultasi Gratis
+              </button>
+            </div>
+          </div>
 
          
           {subCategoriesToShow.length > itemsPerPage && (

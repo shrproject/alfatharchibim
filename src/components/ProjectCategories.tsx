@@ -76,39 +76,39 @@ const ProjectCategories = () => {
           </div>
 
           {/* Categories Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {categories.map((category) => (
               <div
                 key={category.id}
                 className="group relative overflow-hidden rounded-xl shadow-elegant hover:shadow-gold transition-smooth cursor-pointer"
                 onClick={() => handleCategoryClick(category)}
-              >
+              > */}
                 {/* Background Image - Gunakan gambar pertama */}
-                <div
+                {/* <div
                   className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
                   style={{ backgroundImage: `url(${category.image[0]})` }}
                 >
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
-                </div>
+                </div> */}
 
                 {/* Content */}
-                <div className="relative z-10 p-6 h-80 flex flex-col justify-between text-white text-start">
+                {/* <div className="relative z-10 p-6 h-80 flex flex-col justify-between text-white text-start">
                   <div className="flex gap-2 items-center">
                     <div className="bg-brand-gold/20 backdrop-blur-sm rounded-lg p-3 w-fit mb-4">
                       <category.icon className="h-8 w-8 text-brand-gold" />
                     </div>
                     <h3 className="text-2xl font-bold mb-2">{category.title}</h3>
-                  </div>
+                  </div> */}
 
-                  <div>
+                  {/* <div>
                     <p className="text-gray-200 text-sm mb-4 leading-relaxed">
                       {category.description.split(', ').map((line, index) => (
                         <span key={index} className="block">
                           {line}
                         </span>
                       ))}
-                    </p>
-                    <Link 
+                    </p> */}
+                    {/* <Link 
                       href={waLink(category.title)}
                       onClick={(e) => e.stopPropagation()}
                       className="flex items-center justify-between bg-white/20 backdrop-blur-sm rounded-full py-2 pl-6 pr-4 group-hover:bg-brand-gold/30"
@@ -120,8 +120,8 @@ const ProjectCategories = () => {
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
-                        >
-                          <path
+                        > */}
+                          {/* <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
                             strokeWidth={2}
@@ -134,7 +134,7 @@ const ProjectCategories = () => {
                 </div>
               </div>
             ))}
-          </div>
+          </div> */}
 
           {/* Bottom CTA */}
           <div className="text-center mt-16">
