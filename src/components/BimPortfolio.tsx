@@ -9,7 +9,7 @@ export default function CVSection() {
   return (
     <section className="py-16 px-4 md:px-8 lg:px-16 bg-gray-50">
         <h2 className="text-4xl md:text-5xl font-bold mb-6 text-brand-dark">
-            CV dan BIM <span className="text-brand-gold">Portfolio</span>
+            BIM <span className="text-brand-gold">Portfolio</span>
         </h2>
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row text-start gap-8 md:gap-12">
             {/* Image on left - 1:1 aspect ratio on desktop */}
