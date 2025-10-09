@@ -6,11 +6,12 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'i.ibb.co.com', 
+        // Ganti dengan hostname Supabase Storage Anda
+        hostname: 'dhvzunymgvadhdtfojyi.supabase.co', 
         port: '',
-        pathname: '/**',
+        // Pathname ini mengizinkan semua gambar dari semua bucket publik
+        pathname: '/storage/v1/object/public/**',
       },
-      
     ],
   },
 };
