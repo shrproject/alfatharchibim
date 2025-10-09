@@ -28,13 +28,12 @@ const Hero = () => {
       <div className="relative z-10 container mx-auto px-6 text-center text-white py-30 lg:py-[unset]">
         <div className="max-w-3xl mx-auto">
           <h1 className="text-3xl md:text-5xl font-bold mb-4 leading-tight">
-            Wujudkan Impian Anda Bersama{" "}
-            <span className="text-brand-gold">Arsitek Profesional</span>
+            Kami Rancang , Modelkan , dan{" "}
+            <span className="text-brand-gold">Bangun Impian Anda</span>
           </h1>
           
           <p className="text-lg md:text-xl mb-6 text-gray-200 leading-relaxed">
-            Layanan desain arsitektur, pemodelan BIM, dan konstruksi terpercaya
-            untuk proyek hunian, komersial, dan institusi
+            Melalui pendekatan digital berbasis BIM dan desain arsitektur modern, kami hadir sebagai mitra inovatif untuk setiap proyek hunian, komersial, dan institusi.
           </p>
 
           {/* CTA Buttons */}
